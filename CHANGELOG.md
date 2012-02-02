@@ -1,3 +1,8 @@
+__fast\_change\_table__ 1.1.2
+
+* updating homepage error
+
+
 __fast\_change\_table__ 1.1.1
 
 * changing homepage to thegboat
