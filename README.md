@@ -29,7 +29,7 @@ enable\_indexes(table, list\_of\_indexes)
   restores a list of indexes to a table
   
 fast\_add\_indexes(table, &block)
-  allows you to pass a block to add indexes.  For mysql creates specified indexes in one statement; allows the data to be scanned once.
+  allows you to pass a block to add indexes.
   
 __Example:__
   
@@ -41,14 +41,15 @@ __Example:__
   
 copy\_table(from\_table, to\_table, remaps = [])
   
-* copies rows from one table into another.  this probably only works with Mysql.
+* copies rows from one table into another.
   by default copies data from column of from_table to to_table of same name.
   will not copy data where there is no corresponding column.
   the remaps argument can be supplied to tell copy table how to handle unmatched columns or override this behavior
+  for multiple remap columns provide an array of 2 element arrays
   
 __Examples:__
 
   
     copy_table(old_users_without_email_hash, new_table, ['MD5(email)', 'email_hash'])
   
-    copy_table(old_users_without_total, new_table, ['sum(payments)', 'total_payments'])
+    copy_table(old_users_without_total, new_table, [['sum(payments)', 'total_payments'], ['avg(payments)', 'average_payments']])
