@@ -1,11 +1,6 @@
-
-
 module FastChangeTable
-  def self.included(base)
-    base.extend ClassMethods
-  end
   
-  module ClassMethods
+  module InstanceMethods
     def fast_change_table(table_name, options = {}, &block)
       options.symbolize_keys!
       old_table_name = "old_#{table_name}"
@@ -25,6 +20,12 @@ module FastChangeTable
         raise e
       end
     end
+    
+    def change_table_with_remaps(table_name)
+      t = ActiveRecord::ConnectionAdapters::Table.new(table_name, self)
+      yield t
+      return t.renamed_columns
+    end
 
     def fast_add_indexes(table, &blk)
       phoney = PhoneyTable.new(table.to_s)
@@ -42,14 +43,14 @@ module FastChangeTable
       else
         code.gsub!(/add_index\s+"#{like_table}"/, "add_index :#{table}")
       end
-      class_eval(code)
+      eval(code)
       true
     end
 
     #copy_table( :sometable, :newtable, [[:old_column, :new_column]])
     def copy_table(from, to, remaps = [])
-      old = connection.columns(from).collect(&:name)
-      current = connection.columns(to).collect(&:name)
+      old = columns(from).collect(&:name)
+      current = columns(to).collect(&:name)
       remapped_columns = remaps.collect {|c| c.first.to_s}.compact
       common = (current & old).sort - remapped_columns
       from_columns = common.collect {|c| "`#{c}`"}
@@ -66,7 +67,7 @@ module FastChangeTable
     end
 
     def table_schema_code(table)
-      dumper = ActiveRecord::SchemaDumper.send(:new, connection)
+      dumper = ActiveRecord::SchemaDumper.send(:new, self)
       stream = StringIO.new
       dumper.send(:table, table.to_s, stream)
       stream.rewind
@@ -75,7 +76,7 @@ module FastChangeTable
 
     #removes all the indexes 
     def disable_indexes(table)
-      list = connection.indexes(table)
+      list = indexes(table)
       list.each do |i|
         remove_index table, :name => i.name
       end

@@ -1,3 +1,8 @@
+__fast\_change\_table__ 1.1.5
+
+* updating for Rails 3 compatibility
+
+
 __fast\_change\_table__ 1.1.4
 
 * updating README.md
