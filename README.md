@@ -7,6 +7,8 @@ __Known issues:__
 * Currently fast\_change\_table does not supported in Rails 3 reversible migration method.
 
 
+__Usage:__
+
 uses ordinary change_table syntax but adds two options
 
 * "replace\_keys" to remove all indexes; new indexes will be specified
