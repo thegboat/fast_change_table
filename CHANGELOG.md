@@ -1,4 +1,4 @@
-__fast\_change\_table__ 1.1.5
+__fast\_change\_table__ 1.2.0
 
 * updating for Rails 3 compatibility
 
