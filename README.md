@@ -4,7 +4,7 @@ Use fast\_change\_table instead of change_table in your migrations on large tabl
 
 __Known issues:__
 
-* Currently fast\_change\_table does not supported in Rails 3 reversible migration method.  When using migrations you must call the class up and down methods.  By default Rails 3 uses instance methods (i.e def self.up instead of def up).
+* Currently fast\_change\_table is not supported within Rails 3 reversible migration methods.  When using migrations you must call the class up and down methods.  By default Rails 3 uses instance methods (i.e def self.up instead of def up).
 
 __Usage:__
 
