@@ -4,7 +4,7 @@ Use fast\_change\_table instead of change_table in your migrations on large tabl
 
 __Known issues:__
 
-* Currently fast\_change\_table does not supported in Rails 3 reversible migration method.
+* Currently fast\_change\_table transformations do not support Rails 3 reversible migration method.
 
 
 __Usage:__
@@ -12,7 +12,9 @@ __Usage:__
 uses ordinary change_table syntax but adds two options
 
 * "replace\_keys" to remove all indexes; new indexes will be specified
-- "disable\_keys" to remove indexes and apply them after data load; this is a tremendous performance enhancement for a dbms with fast index creation; it is active by default. set it to false to prevent its use
+- "disable\_keys" to remove indexes and apply them after data load; this is a tremendous performance enhancement for a dbms with fast index creation; it is active by default. set it to false to prevent its usage
+
+the bulk option is set by default set it to false to prevent its usage.
 
 __Example:__
 

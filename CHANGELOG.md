@@ -1,3 +1,8 @@
+__fast\_change\_table__ 1.3.0
+
+* adding bulk alter support
+
+
 __fast\_change\_table__ 1.2.0
 
 * updating for Rails 3 compatibility

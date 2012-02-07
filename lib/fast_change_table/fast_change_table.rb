@@ -7,7 +7,7 @@ module FastChangeTable
       rename_table(table_name, old_table_name)
       begin
        create_table_like(old_table_name, table_name, options)
-       renamed_columns = change_table_with_remaps(table_name, &block)
+       renamed_columns = change_table_with_remaps(table_name, options, &block)
        index_list = options[:disable_keys] == false  ? [] : disable_indexes(table_name)
        #prepare the columns names for the insert statements
        copy_table(old_table_name, table_name, renamed_columns)
@@ -21,9 +21,17 @@ module FastChangeTable
       end
     end
     
-    def change_table_with_remaps(table_name)
-      t = ActiveRecord::ConnectionAdapters::Table.new(table_name, self)
-      yield t
+    def change_table_with_remaps(table_name, options = {})
+      options.reverse_merge!(:bulk => true)
+      if respond_to?('supports_bulk_alter?') && supports_bulk_alter? && options[:bulk]
+        recorder = ActiveRecord::Migration::CommandRecorder.new(self)
+        t = ActiveRecord::ConnectionAdapters::Table.new(table_name, recorder)
+        yield t
+        bulk_change_table(table_name, recorder.commands)
+      else
+        t = ActiveRecord::ConnectionAdapters::Table.new(table_name, self)
+        yield t
+      end
       return t.renamed_columns
     end
 
