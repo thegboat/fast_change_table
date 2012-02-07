@@ -1,3 +1,8 @@
+__fast\_change\_table__ 1.4.0
+
+* implementing change table for background transformations; using bulk alter
+
+
 __fast\_change\_table__ 1.3.0
 
 * adding bulk alter support

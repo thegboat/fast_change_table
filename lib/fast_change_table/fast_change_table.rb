@@ -85,20 +85,24 @@ module FastChangeTable
     #removes all the indexes 
     def disable_indexes(table)
       list = indexes(table)
-      list.each do |i|
-        remove_index table, :name => i.name
+      change_table_with_remaps table do |t|
+        list.each do |i|
+          t.remove_index :name => i.name
+        end
       end
       list
     end
 
     #
     def enable_indexes(table, list)
-      list.each do |i|
-        options = {}
-        options[:name]    = i.name    if i.name
-        options[:length]  = i.lengths if i.lengths
-        options[:unique]  = i.unique  if i.unique
-        add_index table, i.columns, options
+      change_table_with_remaps table do |t|
+        list.each do |i|
+          options = {}
+          options[:name]    = i.name    if i.name
+          options[:length]  = i.lengths if i.lengths
+          options[:unique]  = i.unique  if i.unique
+          t.index i.columns, options
+        end
       end
       true
     end

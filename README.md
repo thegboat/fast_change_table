@@ -14,7 +14,7 @@ uses ordinary change_table syntax but adds two options
 * "replace\_keys" to remove all indexes; new indexes will be specified
 - "disable\_keys" to remove indexes and apply them after data load; this is a tremendous performance enhancement for a dbms with fast index creation; it is active by default. set it to false to prevent its usage
 
-the bulk option is set by default set it to false to prevent its usage.
+the bulk option is set by default; set it to false to prevent its usage.
 
 __Example:__
 
@@ -31,13 +31,13 @@ create\_table\_like(orignal\_table, table\_to\_copy\_to)
   creates a table with the same structure
   
 disable\_indexes(table)
-  removes all indexes from a table, returns a list of index objects removed
+  removes all indexes from a table, returns a list of index objects removed.  uses bulk alter when possible
   
 enable\_indexes(table, list\_of\_indexes)
-  restores a list of indexes to a table
+  restores a list of indexes to a table.  uses bulk alter when possible
   
 fast\_add\_indexes(table, &block)
-  allows you to pass a block to add indexes.
+  allows you to pass a block to add indexes.  uses bulk alter when possible
   
 __Example:__
   

@@ -6,6 +6,7 @@ describe ActiveRecord::Migration do
       t.integer :an_integer
       t.string :a_string
       t.string :a_name
+      t.string :old_name
     end
     @connection = ActiveRecord::Migration.connection
   end
@@ -17,7 +18,7 @@ describe ActiveRecord::Migration do
   describe "initialize table" do
     it "should have expected starting table" do
       @connection.columns("my_table").all? do |c| 
-        ["id", "an_integer", "a_string", "a_name"].include?(c.name)
+        ["id", "an_integer", "a_string", "a_name", "old_name"].include?(c.name)
       end.should eq(true)
     end
   end
@@ -27,7 +28,7 @@ describe ActiveRecord::Migration do
       ActiveRecord::Migration.create_table_like(:my_table, :my_copied_table)
       
       @connection.columns("my_copied_table").all? do |c| 
-        ["id", "an_integer", "a_string", "a_name"].include?(c.name.to_s)
+        ["id", "an_integer", "a_string", "a_name","old_name"].include?(c.name.to_s)
       end.should eq(true)
     end
   end
@@ -69,6 +70,7 @@ describe ActiveRecord::Migration do
         t.change :an_integer, :integer
         t.change :a_string, :string
         t.change :a_name, :string
+        t.rename :old_name, :new_name
         t.string :new_column
       end
       record = @connection.select_all("select * from my_table").first
@@ -76,6 +78,7 @@ describe ActiveRecord::Migration do
       record['a_string'].should eq('String')
       record['a_name'].should eq('Name')
       record['new_column'].should eq(nil)
+      record['new_name'].should eq(nil)
       @connection.indexes("my_table").empty?.should eq(true)
     end
   end
