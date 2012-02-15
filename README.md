@@ -27,17 +27,28 @@ __Example:__
 
 __other methods:__
 
-create\_table\_like(orignal\_table, table\_to\_copy\_to)
-  creates a table with the same structure
+create\_table\_like(orignal\_table, new\_table)
+
+  * creates a table with the same structure.
+  * BE CAREFUL!, create\_table\_like always drops the new table if it exists
+  
+__Example of creating a similar table but without the indexes and an added column:__
+
+    create_table_like :original_table, :new_table, :remove_keys => true do |t|
+      t.integer :an_integer
+    end
   
 disable\_indexes(table)
-  removes all indexes from a table, returns a list of index objects removed.  uses bulk alter when possible
+
+  * removes all indexes from a table, returns a list of index objects removed.  uses bulk alter when possible
   
 enable\_indexes(table, list\_of\_indexes)
-  restores a list of indexes to a table.  uses bulk alter when possible
+
+  * restores a list of indexes to a table.  uses bulk alter when possible
   
 fast\_add\_indexes(table, &block)
-  allows you to pass a block to add indexes.  uses bulk alter when possible
+
+  * allows you to pass a block to add indexes.  uses bulk alter when possible
   
 __Example:__
   

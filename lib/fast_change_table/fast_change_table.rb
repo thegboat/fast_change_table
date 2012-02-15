@@ -42,7 +42,7 @@ module FastChangeTable
     end
     
     #create_table_like( :sometable, :newtable, :remove_keys => true)
-    def create_table_like(like_table, table, options = {})
+    def create_table_like(like_table, table, options = {}, &blk)
       options.symbolize_keys!
       code = table_schema_code(like_table)
       code.gsub!(/create_table\s+"#{like_table}"/, "create_table :#{table}")
@@ -52,6 +52,7 @@ module FastChangeTable
         code.gsub!(/add_index\s+"#{like_table}"/, "add_index :#{table}")
       end
       eval(code)
+      change_table(table,&blk) if block_given?
       true
     end
 

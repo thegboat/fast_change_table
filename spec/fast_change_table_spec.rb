@@ -33,6 +33,19 @@ describe ActiveRecord::Migration do
     end
   end
   
+  describe "#create_table_like" do
+    it "should create an identical table with an added column" do
+      
+      ActiveRecord::Migration.create_table_like :my_table, :my_copied_table do |t|
+        t.integer :added_column
+      end
+      
+      @connection.columns("my_copied_table").all? do |c| 
+        ["id", "an_integer", "a_string", "a_name","old_name", "added_column"].include?(c.name.to_s)
+      end.should eq(true)
+    end
+  end
+  
   describe "#fast_add_indexes, #disable_indexes, #enable_indexes" do
     it "should add index, remove it then put it back" do
       ActiveRecord::Migration.fast_add_indexes :my_table do |t|

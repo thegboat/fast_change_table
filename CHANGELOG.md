@@ -1,3 +1,7 @@
+__fast\_change\_table__ 1.5.0
+
+* allowing a block to be passed to create\_table\_like to make immediate transformations
+
 __fast\_change\_table__ 1.4.0
 
 * implementing change table for background transformations; using bulk alter
