@@ -5,3 +5,8 @@ RSpec::Core::RakeTask.new('spec')
 
 # If you want to make this the default task
 task :default => :spec
+
+desc "Open an irb session preloaded with this library"
+task :console do
+  sh "irb -rubygems -I lib -r fast_change_table.rb"
+end
