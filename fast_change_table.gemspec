@@ -4,7 +4,7 @@ require "fast_change_table/version"
 
 Gem::Specification.new do |s|
   s.name        = "fast_change_table"
-  s.version     = FastChangeTable::VERSION
+  s.version     = FastChangeTable::VERSION::STRING
   s.authors     = ["Grady Griffin"]
   s.email       = ["gradyg@izea.com"]
   s.homepage    = "https://github.com/thegboat/fast_change_table"
