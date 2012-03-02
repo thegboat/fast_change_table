@@ -1,3 +1,9 @@
 module FastChangeTable
-  VERSION = "1.5.0"
+  module VERSION
+    MAJOR = 1
+    MINOR = 5
+    TINY = 1
+
+    STRING = [MAJOR, MINOR, TINY].join('.')
+  end
 end
