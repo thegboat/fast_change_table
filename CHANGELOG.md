@@ -1,3 +1,8 @@
+__fast\_change\_table__ 1.6.0
+
+* tested with sqlite and postgres
+* changed name of copy\_table to copy\_table\_data
+
 __fast\_change\_table__ 1.5.0
 
 * allowing a block to be passed to create\_table\_like to make immediate transformations

@@ -69,6 +69,6 @@ copy\_table(from\_table, to\_table, remaps = [])
 __Examples:__
 
   
-    copy_table(old_users_without_email_hash, new_table, ['MD5(email)', 'email_hash'])
+    copy_table_data(old_users_without_email_hash, new_table, ['MD5(email)', 'email_hash'])
   
-    copy_table(old_users_without_total, new_table, [['sum(payments)', 'total_payments'], ['avg(payments)', 'average_payments']])
+    copy_table_data(old_users_without_total, new_table, [['sum(payments)', 'total_payments'], ['avg(payments)', 'average_payments']])

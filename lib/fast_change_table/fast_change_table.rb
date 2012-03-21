@@ -10,7 +10,7 @@ module FastChangeTable
        renamed_columns = change_table_with_remaps(table_name, options, &block)
        index_list = options[:disable_keys] == false  ? [] : disable_indexes(table_name)
        #prepare the columns names for the insert statements
-       copy_table(old_table_name, table_name, renamed_columns)
+       copy_table_data(old_table_name, table_name, renamed_columns)
        enable_indexes(table_name, index_list) unless options[:disable_keys] == false
        drop_table(old_table_name)
       rescue Exception => e
@@ -56,8 +56,8 @@ module FastChangeTable
       true
     end
 
-    #copy_table( :sometable, :newtable, [[:old_column, :new_column]])
-    def copy_table(from, to, remaps = [])
+    #copy_table_data( :sometable, :newtable, [[:old_column, :new_column]])
+    def copy_table_data(from, to, remaps = [])
       old = columns(from).collect(&:name)
       current = columns(to).collect(&:name)
       remapped_columns = remaps.collect {|c| c.first.to_s}.compact
