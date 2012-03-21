@@ -7,9 +7,14 @@ RSpec.configure do |config|
   # some (optional) config here
 end
 
+# ActiveRecord::Base.establish_connection(
+# :adapter => "mysql2",
+# :database => "fast_change_table_test"
+# )
+
 ActiveRecord::Base.establish_connection(
-:adapter => "mysql2",
-:database => "fast_change_table_test"
+:adapter => "sqlite3",
+:database => "db/test.db"
 )
 
 

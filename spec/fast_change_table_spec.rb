@@ -8,6 +8,11 @@ describe ActiveRecord::Migration do
       t.string :a_name
       t.string :old_name
     end
+    unless defined?(TestClass)
+      klass = Class.new(ActiveRecord::Base)
+      klass.table_name = "my_table"
+      Kernel.const_set("TestClass", klass)
+    end
     @connection = ActiveRecord::Migration.connection
   end
   
@@ -61,12 +66,12 @@ describe ActiveRecord::Migration do
     end
   end
   
-  describe "#copy_table" do
+  describe "#copy_table_data" do
     it "should copy the records from one table to another" do
-      @connection.execute "INSERT my_table (an_integer, a_string, a_name) VALUES (1,'String','Name')"
+      TestClass.create(:an_integer => 1, :a_string => 'String', :a_name => 'Name')
       ActiveRecord::Migration.create_table_like(:my_table, :my_copied_table)
       ActiveRecord::Migration.add_column(:my_copied_table, :new_column, :string)
-      ActiveRecord::Migration.copy_table(:my_table, :my_copied_table, [["'Nothing'", "new_column"]])
+      ActiveRecord::Migration.copy_table_data(:my_table, :my_copied_table, [["'Nothing'", "new_column"]])
       record = @connection.select_all("select * from my_copied_table").first
       record['an_integer'].should eq(1)
       record['a_string'].should eq('String')
@@ -77,7 +82,7 @@ describe ActiveRecord::Migration do
   
   describe "#fast_change_table" do
     it "should bring it all together" do
-      @connection.execute "INSERT my_table (an_integer, a_string, a_name) VALUES (1,'String','Name')"
+      TestClass.create(:an_integer => 1, :a_string => 'String', :a_name => 'Name')
       ActiveRecord::Migration.add_index :my_table, :an_integer, :name => "an_index"
       ActiveRecord::Migration.fast_change_table :my_table, :remove_keys => true do |t|
         t.change :an_integer, :integer

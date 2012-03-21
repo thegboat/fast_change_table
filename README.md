@@ -58,7 +58,7 @@ __Example:__
      t.index [:some_other_column, :column_three], :name => "a_multicolumn_index"
     end
   
-copy\_table(from\_table, to\_table, remaps = [])
+copy\_table\_data(from\_table, to\_table, remaps = [])
   
 * copies rows from one table into another.
   by default copies data from column of from_table to to_table of same name.
@@ -69,6 +69,6 @@ copy\_table(from\_table, to\_table, remaps = [])
 __Examples:__
 
   
-    copy_table(old_users_without_email_hash, new_table, ['MD5(email)', 'email_hash'])
+    copy_table_data(old_users_without_email_hash, new_table, ['MD5(email)', 'email_hash'])
   
-    copy_table(old_users_without_total, new_table, [['sum(payments)', 'total_payments'], ['avg(payments)', 'average_payments']])
+    copy_table_data(old_users_without_total, new_table, [['sum(payments)', 'total_payments'], ['avg(payments)', 'average_payments']])
