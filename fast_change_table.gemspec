@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = "fast_change_table"
   s.version     = FastChangeTable::VERSION::STRING
   s.authors     = ["Grady Griffin"]
-  s.email       = ["gradyg@izea.com"]
+  s.email       = ["gradygriffin@gmail.com"]
   s.homepage    = "https://github.com/thegboat/fast_change_table"
   s.summary     = %q{Faster table changes}
   s.description = %q{Uses table duplication to speed up migrations on large tables}
@@ -23,9 +23,11 @@ Gem::Specification.new do |s|
     s.add_runtime_dependency('activerecord', '>= 2.3')
     s.add_development_dependency("rspec")
     s.add_development_dependency("mysql2")
+    s.add_development_dependency("sqlite3")
   else
     s.add_dependency('activerecord', '>= 2.3')
     s.add_development_dependency("rspec")
     s.add_development_dependency("mysql2")
+    s.add_development_dependency("sqlite3")
   end
 end
