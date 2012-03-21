@@ -58,7 +58,7 @@ __Example:__
      t.index [:some_other_column, :column_three], :name => "a_multicolumn_index"
     end
   
-copy\_table(from\_table, to\_table, remaps = [])
+copy\_table\_data(from\_table, to\_table, remaps = [])
   
 * copies rows from one table into another.
   by default copies data from column of from_table to to_table of same name.
